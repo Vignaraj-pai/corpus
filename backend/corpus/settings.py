@@ -25,7 +25,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["ENVIRONMENT"] == "DEVELOPMENT"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "backend"]
 if os.environ["ENVIRONMENT"] == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
 
@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "oauth2_provider",
+
+    "accounts.apps.AccountsConfig"
 ]
 
 MIDDLEWARE = [
@@ -132,3 +135,21 @@ else:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Corpus Settings
+LOGIN_URL = "/api/admin"
+LOGIN_REDIRECT_URL = "/api/accounts/users"
+LOGOUT_REDIRECT_URL = "/api/admin"
+
+AUTH_USER_MODEL = "accounts.User"
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+        "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
+    ]
+}

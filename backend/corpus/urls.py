@@ -21,4 +21,6 @@ from django.urls import path
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
+    path("oauth/", include("oauth2_provider.urls", namespace="oauth2_provider")),
+    path("accounts/", include("accounts.urls")),
 ]
