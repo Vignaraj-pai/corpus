@@ -22,8 +22,8 @@
         localStorage.setItem("corpusTheme", theme);
     }
 
-    {% if request.get_full_path == "/" %}
     const updateIndex = (theme) => {
+    {% if request.get_full_path == "/" %}
         if (theme == "winter") {
             particlesJS.load('particles-js', '/static/js/particles.json');
             $("#ieee-white").hide();
@@ -39,6 +39,6 @@
             $(".light-logo").hide();
             $(".dark-logo").show();
         }
-    }
     {% endif %}
+    }
 </script>
